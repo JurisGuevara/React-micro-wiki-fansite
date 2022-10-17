@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import scrollToTop from './components/customHooks/scrollToTop';
+import scrollToTop from './customHooks/scrollToTop';
 import Header from './components/Header';
 import Films from './components/tabs/Films';
 import Home from './components/tabs/Home';

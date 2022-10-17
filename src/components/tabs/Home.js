@@ -1,6 +1,13 @@
-import '../css/Home.css'
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { setActiveTab } from '../../store/tabSlice';
+import '../../css/Home.css'
+import scrollToTop from '../../customHooks/scrollToTop';
 
 const Home = () => {
+  const dispatch = useDispatch()
+  const toTop = () => scrollToTop()
+
   return (
     <div className="home">
       <img className="landing-img" src="https://free4kwallpapers.com/uploads/originals/2020/05/06/epic-star-wars-wallpaper.jpg" alt="" />
@@ -23,46 +30,58 @@ const Home = () => {
       <div className="image-grid">
         <ul>
           <li className="card">
-            <h3>Planets</h3>
-            <img src="http://cdn.miscellaneoushi.com/2560x1440/20191217/5df8320eb7792.jpg" alt="" />
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores sunt corporis dolorem accusamus sed obcaecati fugit porro laborum eos ipsum, odio dolor repellendus amet nostrum, deserunt aut hic inventore! Officia!
-            </p>
+            <Link to="planets" onClick={() => {dispatch(setActiveTab('planets')); toTop()}}>
+              <h3>Planets</h3>
+              <img src="http://cdn.miscellaneoushi.com/2560x1440/20191217/5df8320eb7792.jpg" alt="" />
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores sunt corporis dolorem accusamus sed obcaecati fugit porro laborum eos ipsum, odio dolor repellendus amet nostrum, deserunt aut hic inventore! Officia!
+              </p>
+            </Link>
           </li>
           <li className="card">
-            <h3>Spaceships</h3>
-            <img src="https://lumiere-a.akamaihd.net/v1/images/databank_superstardestroyer_01_169_d5757b90.jpeg?region=0%2C49%2C1560%2C780" alt="" />
-            <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odio esse non, sequi laborum quibusdam iure velit quia rem veritatis perspiciatis itaque maxime libero corrupti qui voluptas aliquid repellendus.
-            </p>
+            <Link to="spaceships" onClick={() => {dispatch(setActiveTab('spaceships')); toTop()}}>
+              <h3>Spaceships</h3>
+              <img src="https://lumiere-a.akamaihd.net/v1/images/databank_superstardestroyer_01_169_d5757b90.jpeg?region=0%2C49%2C1560%2C780" alt="" />
+              <p>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odio esse non, sequi laborum quibusdam iure velit quia rem veritatis perspiciatis itaque maxime libero corrupti qui voluptas aliquid repellendus.
+              </p>
+            </Link>
           </li>
           <li className="card">
-            <h3>Vehicles</h3>
-            <img src="https://bbts1.azureedge.net/images/p/full/2019/11/6f40d63b-0678-4471-a0a2-35627625c23b.jpg" alt="" />
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Et veritatis unde dolorem. Recusandae, quia quasi. Blanditiis voluptatem vel sed voluptate ducimus quam, impedit deserunt voluptatibus reiciendis esse tempore beatae quasi?
-            </p>
+            <Link to="vehicles" onClick={() => {dispatch(setActiveTab('vehicles')); toTop()}}>
+              <h3>Vehicles</h3>
+              <img src="https://bbts1.azureedge.net/images/p/full/2019/11/6f40d63b-0678-4471-a0a2-35627625c23b.jpg" alt="" />
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Et veritatis unde dolorem. Recusandae, quia quasi. Blanditiis voluptatem vel sed voluptate ducimus quam, impedit deserunt voluptatibus reiciendis esse tempore beatae quasi?
+              </p>
+            </Link>
           </li>
           <li className="card">
-            <h3>People</h3>
-            <img src="https://www.popcornbanter.com/wp-content/uploads/2021/09/best-sw-characters-1.jpg" alt="" />
-            <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sit laborum labore soluta cum vitae nam repudiandae, omnis, animi officia, officiis facilis saepe tempore assumenda incidunt asperiores iure culpa!
-            </p>
+            <Link to="people" onClick={() => {dispatch(setActiveTab('people')); toTop()}}>
+              <h3>People</h3>
+              <img src="https://www.popcornbanter.com/wp-content/uploads/2021/09/best-sw-characters-1.jpg" alt="" />
+              <p>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sit laborum labore soluta cum vitae nam repudiandae, omnis, animi officia, officiis facilis saepe tempore assumenda incidunt asperiores iure culpa!
+              </p>
+            </Link>
           </li>
           <li className="card">
-            <h3>Films</h3>
-            <img src="https://cdn.mos.cms.futurecdn.net/sgQUU6si9oqQzR63ePMssa.jpg" alt="" />
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea tempora quia eos. Adipisci ducimus veritatis quibusdam reprehenderit corrupti veniam culpa!
-            </p>
+            <Link to="films" onClick={() => {dispatch(setActiveTab('films')); toTop()}}>
+              <h3>Films</h3>
+              <img src="https://cdn.mos.cms.futurecdn.net/sgQUU6si9oqQzR63ePMssa.jpg" alt="" />
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea tempora quia eos. Adipisci ducimus veritatis quibusdam reprehenderit corrupti veniam culpa!
+              </p>
+            </Link>
           </li>
           <li className="card">
-            <h3>Species</h3>
-            <img src="https://www.denofgeek.com/wp-content/uploads/2021/03/star-wars-alien-species-sith-chiss-kaminoans-rakata.jpg?resize=768%2C432" alt="" />
-            <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto molestiae sequi asperiores adipisci vel veritatis aut, exercitationem recusandae expedita quae cum, atque, mollitia iste?
-            </p>
+            <Link to="species" onClick={() => {dispatch(setActiveTab('species')); toTop()}}>
+              <h3>Species</h3>
+              <img src="https://www.denofgeek.com/wp-content/uploads/2021/03/star-wars-alien-species-sith-chiss-kaminoans-rakata.jpg?resize=768%2C432" alt="" />
+              <p>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto molestiae sequi asperiores adipisci vel veritatis aut, exercitationem recusandae expedita quae cum, atque, mollitia iste?
+              </p>
+            </Link>
           </li>
         </ul>
       </div>
