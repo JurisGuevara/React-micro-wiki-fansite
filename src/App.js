@@ -1,5 +1,5 @@
-import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import { Route, Routes } from 'react-router-dom';
 import scrollToTop from './customHooks/scrollToTop';
 import Header from './components/Header';
 import Films from './components/tabs/Films';
