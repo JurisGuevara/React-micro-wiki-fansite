@@ -1,6 +1,7 @@
 .tab-content {
   margin-top: 24px;
-  min-height: calc(100vh - 350px);
+  min-height: calc(100vh - 150px);
+  position: relative;
 }
 
 .tab-content h2 {
@@ -13,7 +14,7 @@
 
 .tab-content ul {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   grid-gap: 12px;
   margin-top: 12px;
 }
@@ -28,7 +29,6 @@
 
 .tab-content .card:hover {
   background-color: rgba(0, 0, 0, 1);
-  cursor: pointer;
 }
 
 .tab-content .card h3 {
@@ -44,4 +44,8 @@
 
 .tab-content .card p {
   padding: 6px 0;
+}
+
+.tab-content .text-stat {
+  color: rgb(177, 148, 113);
 }

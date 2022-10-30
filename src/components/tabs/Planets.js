@@ -1,10 +1,14 @@
 import "../../css/Tabs.css"
 import { useState } from "react";
 import useFetch from "../../customHooks/useFetch";
+import scrollToTop from "../../customHooks/scrollToTop";
 
 const Planets = () => {
-  const [url, setUrl] = useState('https://swapi.dev/api/planets')
-  const {data, isPending, error} = useFetch(url)
+  const [url, setUrl] = useState('https://swapi.dev/api/planets/?page=1')
+  const {data, error} = useFetch(url)
+  
+  const toTop = () => scrollToTop()
+
   const planetImages = [
     'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/ed97b542-8697-4d5c-a783-0dd8185c89d0/d15sn9h-b91d0d97-8378-4b8c-b943-dd1b39a21a84.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2VkOTdiNTQyLTg2OTctNGQ1Yy1hNzgzLTBkZDgxODVjODlkMFwvZDE1c245aC1iOTFkMGQ5Ny04Mzc4LTRiOGMtYjk0My1kZDFiMzlhMjFhODQuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.TbpQRH5usavAhtJl_KJ7Tg7eyJBgiVM7fwz7iddfc_4',
     'https://i.imgur.com/pmKfFI6.png',
@@ -41,31 +45,34 @@ const Planets = () => {
 
   return (
     <div className="tab-content">
-      {isPending && <div>Loading . . .</div>}
       {error && <div>{error}</div>}
-      {data && (
+      {data &&
         <>
           <h2>Planets</h2>
           <ul>
             {data.results.map((planet, i) => (
               <li className="card" key={planet.name}>
-                <a href="">
-                  <h3>{planet.name}</h3>
-                  <img src={planetImages[i]} alt="" />
-                  <p>Rotation Period: {planet.rotation_period}</p>
-                  <p>Orbital Period: {addCommas(planet.orbital_period)}</p>
-                  <p>Diameter: {addCommas(planet.diameter)}</p>
-                  <p>Climate: {planet.climate}</p>
-                  <p>Gravity: {planet.gravity}</p>
-                  <p>Terrain: {planet.terrain}</p>
-                  <p>Surface Water: {planet.surface_water}</p>
-                  <p>Population: {formatPopulation(planet.population)}</p>
-                </a>
+                <h3>{planet.name}</h3>
+                <img src={planetImages[i]} alt="" />
+                <p><span className="text-stat">Rotation Period:</span> {planet.rotation_period}</p>
+                <p><span className="text-stat">Orbital Period:</span> {addCommas(planet.orbital_period)}</p>
+                <p><span className="text-stat">Diameter:</span> {addCommas(planet.diameter)}</p>
+                <p><span className="text-stat">Climate:</span> {planet.climate}</p>
+                <p><span className="text-stat">Gravity:</span> {planet.gravity}</p>
+                <p><span className="text-stat">Terrain:</span> {planet.terrain}</p>
+                <p><span className="text-stat">Surface Water:</span> {planet.surface_water}</p>
+                <p><span className="text-stat">Population:</span> {formatPopulation(planet.population)}</p>
               </li>
             ))}
           </ul>
+          <div className="pagination">
+            {typeof(data.previous) === 'string' && data.previous.substr(data.previous.length - 1) > 1 ? <button onClick={() => {setUrl('https://swapi.dev/api/planets'); toTop()}}>&#60;&#60;</button> : <button className="disabled">&#60;&#60;</button>}
+            {data.previous ? <button onClick={() => {setUrl(data.previous); toTop()}}>Previous</button> : <button className="disabled">Previous</button>}
+            {data.next ? <button onClick={() => {setUrl(data.next); toTop()}}>Next</button> : <button className="disabled">Next</button>}
+            {typeof(data.next) === 'string' && data.next.substr(data.next.length - 1) < 6 ? <button onClick={() => {setUrl('https://swapi.dev/api/planets/?page=6'); toTop()}}>&gt;&gt;</button> : <button className="disabled">&gt;&gt;</button>}
+          </div>
         </>
-      )}
+      }
     </div>
   );
 }

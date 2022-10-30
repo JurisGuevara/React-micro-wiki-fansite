@@ -9,6 +9,8 @@ import Planets from './components/tabs/Planets';
 import Spaceships from './components/tabs/Spaceships';
 import Species from './components/tabs/Species';
 import Vehicles from './components/tabs/Vehicles';
+import Loading from './components/Loading';
+import { useSelector } from 'react-redux';
 
 function App() {
   window.addEventListener('scroll', function() {
@@ -18,6 +20,8 @@ function App() {
     header.classList.toggle('sticky', window.scrollY > 300)
     toTopBtn.classList.toggle('active', window.scrollY > 700)
   })
+
+  const loading = useSelector(state => state.loading.isLoading)
 
   const toTop = () => scrollToTop()
 
@@ -30,6 +34,7 @@ function App() {
         <Routes>
           <Route path="" element={<Home />} />
           <Route path="/planets" element={<Planets />} />
+          <Route path="/planets" element={<Planets />} />
           <Route path="/spaceships" element={<Spaceships />} />
           <Route path="/vehicles" element={<Vehicles />} />
           <Route path="/people" element={<People />} />
@@ -38,6 +43,7 @@ function App() {
         </Routes>
       </div>
       <button className="to-top-btn" onClick={toTop}>To top</button>
+      {loading && <Loading />}
       <footer>
         &#169;Starwars Wiki is a FANDOM Anime Community.
       </footer>
