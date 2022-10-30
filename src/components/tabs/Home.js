@@ -1,11 +1,8 @@
-import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { setActiveTab } from '../../store/tabSlice';
 import '../../css/Home.css'
 import scrollToTop from '../../customHooks/scrollToTop';
 
 const Home = () => {
-  const dispatch = useDispatch()
   const toTop = () => scrollToTop()
 
   return (
@@ -30,7 +27,7 @@ const Home = () => {
       <div className="image-grid">
         <ul>
           <li className="card">
-            <Link to="planets" onClick={() => {dispatch(setActiveTab('planets')); toTop()}}>
+            <Link to="planets" onClick={() => toTop()}>
               <h3>Planets</h3>
               <img src="http://cdn.miscellaneoushi.com/2560x1440/20191217/5df8320eb7792.jpg" alt="" />
               <p>
@@ -39,7 +36,7 @@ const Home = () => {
             </Link>
           </li>
           <li className="card">
-            <Link to="spaceships" onClick={() => {dispatch(setActiveTab('spaceships')); toTop()}}>
+            <Link to="spaceships" onClick={() => toTop()}>
               <h3>Spaceships</h3>
               <img src="https://lumiere-a.akamaihd.net/v1/images/databank_superstardestroyer_01_169_d5757b90.jpeg?region=0%2C49%2C1560%2C780" alt="" />
               <p>
@@ -48,7 +45,7 @@ const Home = () => {
             </Link>
           </li>
           <li className="card">
-            <Link to="vehicles" onClick={() => {dispatch(setActiveTab('vehicles')); toTop()}}>
+            <Link to="vehicles" onClick={() => toTop()}>
               <h3>Vehicles</h3>
               <img src="https://bbts1.azureedge.net/images/p/full/2019/11/6f40d63b-0678-4471-a0a2-35627625c23b.jpg" alt="" />
               <p>
@@ -57,7 +54,7 @@ const Home = () => {
             </Link>
           </li>
           <li className="card">
-            <Link to="people" onClick={() => {dispatch(setActiveTab('people')); toTop()}}>
+            <Link to="people" onClick={() => toTop()}>
               <h3>People</h3>
               <img src="https://www.popcornbanter.com/wp-content/uploads/2021/09/best-sw-characters-1.jpg" alt="" />
               <p>
@@ -66,7 +63,7 @@ const Home = () => {
             </Link>
           </li>
           <li className="card">
-            <Link to="films" onClick={() => {dispatch(setActiveTab('films')); toTop()}}>
+            <Link to="films" onClick={() => toTop()}>
               <h3>Films</h3>
               <img src="https://cdn.mos.cms.futurecdn.net/sgQUU6si9oqQzR63ePMssa.jpg" alt="" />
               <p>
@@ -75,7 +72,7 @@ const Home = () => {
             </Link>
           </li>
           <li className="card">
-            <Link to="species" onClick={() => {dispatch(setActiveTab('species')); toTop()}}>
+            <Link to="species" onClick={() => toTop()}>
               <h3>Species</h3>
               <img src="https://www.denofgeek.com/wp-content/uploads/2021/03/star-wars-alien-species-sith-chiss-kaminoans-rakata.jpg?resize=768%2C432" alt="" />
               <p>

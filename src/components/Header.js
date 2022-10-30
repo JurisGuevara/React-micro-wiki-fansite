@@ -1,11 +1,8 @@
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import scrollToTop from "../customHooks/scrollToTop";
-import { setActiveTab } from "../store/tabSlice";
 
 const Header = () => {
-  const count = useSelector(state => state.tab.activeTab)
-  const dispatch = useDispatch()
+  const location = useLocation()
   const toTop = () => scrollToTop()
   
   return (
@@ -15,56 +12,56 @@ const Header = () => {
           <li>
             <Link
               to="/"
-              className={count === 'home' ? "active" : null}
-              onClick={() => {dispatch(setActiveTab('home')); toTop()}}
+              className={location.pathname === '/' ? "active" : null}
+              onClick={() => toTop()}
             >
               Home
             </Link>
           </li>
           <li>
             <Link to="planets"
-              className={count === 'planets' ? "active" : null}
-              onClick={() => {dispatch(setActiveTab('planets')); toTop()}}
+              className={location.pathname === '/planets' ? "active" : null}
+              onClick={() => toTop()}
             >
               Planets
             </Link>
           </li>
           <li>
             <Link to="spaceships"
-              className={count === 'spaceships' ? "active" : null}
-              onClick={() => {dispatch(setActiveTab('spaceships')); toTop()}}
+              className={location.pathname === '/spaceships' ? "active" : null}
+              onClick={() => toTop()}
             >
               Spaceships
             </Link>
           </li>
           <li>
             <Link to="vehicles"
-              className={count === 'vehicles' ? "active" : null}
-              onClick={() => {dispatch(setActiveTab('vehicles')); toTop()}}
+              className={location.pathname === '/vehicles' ? "active" : null}
+              onClick={() => toTop()}
             >
               Vehicles
             </Link>
           </li>
           <li>
             <Link to="people"
-              className={count === 'people' ? "active" : null}
-              onClick={() => {dispatch(setActiveTab('people')); toTop()}}
+              className={location.pathname === '/people' ? "active" : null}
+              onClick={() => toTop()}
             >
               People
             </Link>
           </li>
           <li>
             <Link to="films"
-              className={count === 'films' ? "active" : null}
-              onClick={() => {dispatch(setActiveTab('films')); toTop()}}
+              className={location.pathname === '/films' ? "active" : null}
+              onClick={() => toTop()}
             >
               Films
             </Link>
           </li>
           <li>
             <Link to="species"
-              className={count === 'species' ? "active" : null}
-              onClick={() => {dispatch(setActiveTab('species')); toTop()}}
+              className={location.pathname === '/species' ? "active" : null}
+              onClick={() => toTop()}
             >
               Species
             </Link>
