@@ -24,11 +24,11 @@
   color: #CCCCCC;
   padding: 24px;
   border-radius: 4px;
-  
 }
 
 .tab-content .card:hover {
   background-color: rgba(0, 0, 0, 1);
+  cursor: pointer;
 }
 
 .tab-content .card h3 {

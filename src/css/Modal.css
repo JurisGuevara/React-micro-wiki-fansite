@@ -1,0 +1,35 @@
+.modal {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.7);
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  width: auto;
+  height: auto;
+  max-width: 80vh;
+  max-height: 80vh;
+  position: relative;
+  background-color: #FFFFFF;
+  padding: 12px;
+  border-radius: 4px;
+}
+
+.modal-content h2 {
+  color: #FFFFFF;
+  position: absolute;
+  margin-left: 4px;
+}
+
+.modal-content img {
+  object-fit: cover;
+  width: 100%;
+  height: auto;
+}

@@ -11,6 +11,7 @@ import Species from './components/tabs/Species';
 import Vehicles from './components/tabs/Vehicles';
 import Loading from './components/Loading';
 import { useSelector } from 'react-redux';
+import Modal from './components/Modal';
 
 function App() {
   window.addEventListener('scroll', function() {
@@ -22,6 +23,9 @@ function App() {
   })
 
   const loading = useSelector(state => state.loading.isLoading)
+  const modalState = useSelector(state => state.modal.modalState)
+  const modalName = useSelector(state => state.modal.modalName)
+  const modalImage = useSelector(state => state.modal.modalImage)
 
   const toTop = () => scrollToTop()
 
@@ -44,6 +48,7 @@ function App() {
       </div>
       <button className="to-top-btn" onClick={toTop}>To top</button>
       {loading && <Loading />}
+      {modalState && <Modal modalName={modalName} modalImage={modalImage} />}
       <footer>
         &#169;Starwars Wiki is a FANDOM Anime Community.
       </footer>
