@@ -18,8 +18,42 @@
   max-height: 80vh;
   position: relative;
   background-color: #FFFFFF;
-  padding: 12px;
+  padding: 4px 4px 0;
   border-radius: 4px;
+}
+
+.modal-content .close-outer {
+  background-color: #FFFFFF;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  content: '';
+  top: 8px;
+  right: 8px;
+  border-radius: 50px;
+  border: none;
+}
+
+.modal-content .close-inner {
+  background-color: #000000;
+  width: 2px;
+  height: 16px;
+  position: absolute;
+  content: '';
+  top: calc(50% - 8px);
+  right: calc(50% - 1px)
+}
+
+.modal-content .close-outer:hover {
+  cursor: pointer;
+}
+
+.modal-content .close-inner:first-of-type {
+  transform: rotate(45deg);
+}
+
+.modal-content .close-inner:last-of-type {
+  transform: rotate(-45deg);
 }
 
 .modal-content h2 {
@@ -32,4 +66,11 @@
   object-fit: cover;
   width: 100%;
   height: auto;
+}
+
+@media (min-height: 1000px) {
+  .modal-content {
+    max-width: 800px;
+    max-height: 800px;
+  }
 }

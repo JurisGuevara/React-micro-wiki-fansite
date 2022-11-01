@@ -1,10 +1,131 @@
+import "../../css/Tabs.css"
+import { useState } from "react";
+import useFetch from "../../customHooks/useFetch";
+import Pagination from "../Pagination";
+import { useDispatch } from "react-redux";
+import { openModal } from "../../store/modalSlice";
+
 const Spaceships = () => {
+  const [url, setUrl] = useState('https://swapi.dev/api/starships/?page=1')
+  const {data, error} = useFetch(url)
+  const firstPage = 'https://swapi.dev/api/starships/?page=1'
+  const lastPage = 'https://swapi.dev/api/starships/?page=4'
+
+  const imagesPage1 = [
+    'https://i.pinimg.com/originals/c8/e1/03/c8e10396f9f375a8ea8995d4a69a74ee.jpg',
+    'https://i.pinimg.com/736x/17/79/87/17798715ac95bd4b0474a374cfc0da4a--star-wars--star-wars-ships.jpg',
+    'https://i.pinimg.com/736x/24/70/f8/2470f869235dd1af298bab2fcbe1098e.jpg',
+    'https://i.pinimg.com/736x/2b/ff/d6/2bffd6ae28b35802ca683e90f481fe46.jpg',
+    'https://i.pinimg.com/736x/43/f5/79/43f579fca15cccf8aecca2d6c66ccbeb--star-wars-ships-millenium.jpg',
+    'https://i.pinimg.com/originals/be/70/db/be70db68099caa65464ef93e6ad46699.jpg',
+    'https://i.pinimg.com/736x/7c/a7/4e/7ca74e492086ef55fc34f527f7145f6c.jpg',
+    'https://i.pinimg.com/originals/40/57/67/4057671a44cbeb983ae2b412c639a670.jpg',
+    'https://i.pinimg.com/736x/28/1e/86/281e86d068d13491bd1fc49e272a0a16.jpg',
+    'https://i.pinimg.com/736x/47/35/0d/47350d2df4b30488a689b012ab665afe.jpg'
+  ]
+
+  const imagesPage2 = [
+    'https://i.pinimg.com/originals/be/2a/02/be2a02753f489c501304b09831f3efc9.jpg',
+    'https://i.pinimg.com/originals/b2/a8/61/b2a86148a063194dbb956de60c24d5ff.jpg',
+    'https://i.pinimg.com/originals/9b/9e/00/9b9e00580376ca5a95eab3c0125aba27.png',
+    'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/b626d224-cb34-4c3e-88dc-9ffda8ff07be/dclpbm2-08c388d1-e80c-45fa-8f6c-0d3ad0d394ea.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2I2MjZkMjI0LWNiMzQtNGMzZS04OGRjLTlmZmRhOGZmMDdiZVwvZGNscGJtMi0wOGMzODhkMS1lODBjLTQ1ZmEtOGY2Yy0wZDNhZDBkMzk0ZWEuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.L5nRMARZPW0IXBbEjHpB9BYDIp8cyKmL9FfhylhWMrc',
+    'https://i.pinimg.com/736x/23/c1/21/23c12173479b8a32121d994e7320fde0.jpg',
+    'https://i.pinimg.com/736x/b6/b0/95/b6b095b4496aac45bde3e22179193057--freedom-fighters-star-wars-.jpg',
+    'https://i.pinimg.com/736x/e8/4a/e7/e84ae7ab807a1ececaed97cd5e87f713--star-wars.jpg',
+    'https://i.pinimg.com/736x/b1/42/5d/b1425d3811977822e9ebe698fb65f59d--portfolio-artworks.jpg',
+    'https://i.pinimg.com/736x/70/87/5b/70875bf98a7473962b6f0dfded4d085f.jpg',
+    'https://i.pinimg.com/736x/ca/f6/1f/caf61f0728c99dc5a9147961bda57b58.jpg'
+  ]
+
+  const imagesPage3 = [
+    'https://i.pinimg.com/736x/a1/0d/7e/a10d7e17e0fc8f020be65bded1371c1a.jpg',
+    'https://i.pinimg.com/originals/21/26/f1/2126f14b0679d3e051e73933a5eea579.jpg',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSf0lGPJAdnwmkebcl1_lrIz8fb8e8_1-kQw_JlXbDm0UIG3kWF3o3bhi0Kil2txPGAzr8&usqp=CAU',
+    'https://i.pinimg.com/736x/3a/de/77/3ade776637e6044368913d77ecac21df--star-wars-starfighter-star-wars-jedi.jpg',
+    'https://i.pinimg.com/originals/4d/bb/58/4dbb5864109239ef47d11e01b40a5336.jpg',
+    'https://i.pinimg.com/originals/df/9c/5d/df9c5d352a52df96eea8644d330cb923.jpg',
+    'https://i.pinimg.com/736x/5a/b2/99/5ab299c8de899baa54139284b34403cf.jpg',
+    'https://i.pinimg.com/736x/2f/a1/2d/2fa12d607af47a04bd538a8182133630--war-machine-clone-wars.jpg',
+    'https://cdnb.artstation.com/p/assets/images/images/011/213/673/large/tyler-harris-vadertransport.jpg?1528395146',
+    'https://i.pinimg.com/originals/7e/b5/41/7eb541decdf076bd361cef01d2130b0e.png'
+  ]
+
+  const imagesPage4 = [
+    'https://i.pinimg.com/originals/72/fd/48/72fd4838f785bb4061837a708a56930d.jpg',
+    'https://i.pinimg.com/originals/1f/d5/dc/1fd5dc6a33df24ded91da1c6dbd246f7.jpg',
+    'https://i.pinimg.com/originals/e5/db/e1/e5dbe1dae02b7d7b1294d72d72600d7b.jpg',
+    'https://static.planetminecraft.com/files/resource_media/screenshot/1330/BanesBorrowedMunificent-CoD_6022961.jpg',
+    'https://rpggamer.org/shippics/belbullab22.jpg',
+    'https://i.pinimg.com/originals/96/97/ee/9697eecfbd0768776c29d0195e5197e7.jpg'
+  ]
+
+  const setImagePage = () => {
+    switch (url) {
+      case 'https://swapi.dev/api/starships/?page=1' :
+        return imagesPage1
+      case 'https://swapi.dev/api/starships/?page=2' :
+        return imagesPage2
+      case 'https://swapi.dev/api/starships/?page=3' :
+        return imagesPage3
+      case 'https://swapi.dev/api/starships/?page=4' :
+        return imagesPage4
+      default:
+        break
+    }
+  }
+
+  const addCommas = (strDigits) => {
+    return strDigits.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+  }
+
+  const formatLargeNumbers = (value) => {
+    var newValue = value;
+    if (value >= 1000) {
+        var suffixes = ["", "k", "m", "b","t"];
+        var suffixNum = Math.floor( (""+value).length/3 );
+        var shortValue = '';
+        for (var precision = 2; precision >= 1; precision--) {
+            shortValue = parseFloat( (suffixNum != 0 ? (value / Math.pow(1000,suffixNum) ) : value).toPrecision(precision));
+            var dotLessShortValue = (shortValue + '').replace(/[^a-zA-Z 0-9]+/g,'');
+            if (dotLessShortValue.length <= 2) { break; }
+        }
+        if (shortValue % 1 != 0)  shortValue = shortValue.toFixed(1);
+        newValue = shortValue+suffixes[suffixNum];
+    }
+    return newValue;
+  }
+
+  const dispatch = useDispatch()
+
   return (
-    <div>
-      <h2>Spaceships</h2>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium aut neque molestiae! Vel sit beatae reiciendis est veniam tempore doloribus ad, ipsam quibusdam error, voluptate quaerat harum ipsum earum eos perspiciatis nemo. Nam, cumque laborum aspernatur quam porro officia sit ab excepturi omnis doloremque? Veritatis quia possimus, ducimus, enim saepe recusandae quibusdam iste laudantium iusto error animi esse dolor. Porro adipisci incidunt autem voluptas laborum. Debitis eius veritatis optio, consequuntur nostrum, quibusdam rerum, facere cumque consequatur earum provident sit impedit est perspiciatis quos nihil omnis id odit ad nulla. Ex doloribus impedit, error necessitatibus laboriosam sequi quam reprehenderit vitae provident earum illum facere accusamus ab molestias non assumenda quae deserunt quasi natus neque saepe esse. Quidem magni aliquid tempore veritatis inventore obcaecati amet, libero sequi fuga dolores nostrum optio maxime dolorum, quas a ratione, blanditiis provident nesciunt beatae ut ab voluptate exercitationem. Dolore beatae qui reiciendis vel assumenda nesciunt ex modi labore illo recusandae. Quaerat laudantium reprehenderit accusamus expedita provident iusto voluptas officia fugiat quia cupiditate aliquam, voluptatum optio, perspiciatis ducimus amet sit? Consequuntur dolores nam repellat illo optio, quis modi dicta quaerat, delectus doloremque voluptates non, eveniet quae recusandae tenetur sint nihil ullam facilis ad similique? Accusamus quaerat quisquam possimus molestias maxime nisi rerum, corporis omnis velit voluptates veniam provident doloribus non repellendus facere voluptate debitis perspiciatis molestiae asperiores sequi incidunt. Odit assumenda, inventore sapiente ullam ut, atque dignissimos a fugit, iste velit error maxime magnam. Soluta est explicabo sequi porro unde consectetur quasi, alias pariatur! Accusamus architecto ea perferendis quaerat! Maiores esse, alias at, quisquam eum aliquid autem, magni cum atque placeat a! Minima, maiores veritatis corporis error doloremque provident. Dolore labore doloribus repellat similique error, dolorum numquam quam sequi in quas voluptatum nemo eius eligendi cumque delectus dolores unde rerum porro quidem non! Dignissimos mollitia, voluptate nobis dolorum sequi nostrum exercitationem quas veritatis fugiat, nisi iure maiores illo consequatur ipsa a est. At dicta sequi eaque repellendus, animi eius quibusdam vero qui ea harum atque maxime obcaecati accusamus iure earum non omnis necessitatibus. Officiis et labore illum ducimus obcaecati nam culpa, odio ad deserunt sed? Est quae consectetur obcaecati optio, voluptatem ab iste repellendus, soluta ex facilis odit accusamus aliquam eos ratione itaque quam veniam! Nihil doloribus quaerat magni optio atque veniam numquam, natus, sunt voluptas provident perferendis aperiam quasi eligendi, quod blanditiis laudantium tempora! Asperiores amet dignissimos tempora reprehenderit eum expedita tenetur fugiat. Obcaecati voluptatibus similique fugit. Eveniet provident, quaerat impedit voluptatum nihil sequi? Voluptate similique unde praesentium labore. Non voluptates explicabo ipsam accusamus quae quaerat unde facilis deleniti iste a consectetur error placeat fuga nulla excepturi qui amet corrupti reiciendis, id sapiente. Veniam magni quidem voluptatibus porro repellat, eligendi, iure sapiente inventore temporibus mollitia quibusdam est cupiditate cum fugit eius tempore deserunt nihil. Voluptas harum at nemo sequi mollitia? Quae doloremque assumenda blanditiis ipsa explicabo iusto nemo dolorum? At porro dolore quisquam architecto pariatur asperiores eos doloremque officiis deleniti tenetur modi, perferendis sed tempore adipisci eius quia, sit aliquam voluptatem qui debitis dolorem veritatis, omnis quos cum! Quo autem corporis alias cumque. Minus quos nobis debitis distinctio quasi neque, alias, eligendi, corporis sint voluptatem laboriosam? Tempora, provident quos voluptates excepturi ab est veniam similique omnis saepe esse ut ducimus cum porro eius itaque corrupti enim perspiciatis labore dolore reprehenderit, possimus ex fugit? Reprehenderit quasi rerum ducimus facere nisi ab dolores corrupti officia magnam quos. Delectus, error voluptates esse obcaecati accusantium cumque at voluptatibus odit tempore ullam nemo eum veritatis, architecto iusto aliquid illo eos iure voluptas, sequi eaque assumenda corrupti asperiores! Nulla error recusandae quia, nesciunt, consectetur libero aliquid dolorum ea neque aut rem, sequi quas? Recusandae quibusdam exercitationem laborum deleniti eligendi corrupti temporibus reiciendis quaerat, repellendus tenetur cupiditate nulla consequatur minus molestias impedit excepturi earum repellat assumenda et! Libero, accusantium. Quia veritatis fuga error dolorem eum voluptatibus velit laboriosam odio. Dolore laborum porro unde corrupti quos molestiae iure consequuntur! Esse, nesciunt maxime illum consequatur eveniet amet harum molestias iure quas. Dolore commodi, ratione a dolorem aperiam iure ea repellat fuga et? Blanditiis fugiat, vel eveniet a impedit dolor temporibus saepe numquam explicabo reprehenderit natus repellat quod omnis ad placeat maiores minus in eius dolorem corporis dolores? Consectetur et eius sunt hic atque placeat vel, aut ratione est ut molestias eligendi delectus iusto incidunt veritatis nobis distinctio, voluptate adipisci tempora quia ullam officiis ipsam repellendus architecto! Architecto nobis labore totam unde illo itaque ipsum est, in cumque praesentium esse rerum, natus voluptatum sunt ad error nostrum quisquam laudantium, molestias aut illum facilis? Omnis, cum similique! Ex ducimus nisi eaque culpa, perferendis explicabo dolore unde reiciendis adipisci facere harum eius corrupti corporis. Nihil tenetur necessitatibus architecto dolorem numquam odio. Numquam commodi quam eveniet nemo, corporis quasi! Molestiae vitae suscipit impedit accusamus, ipsum saepe. Ipsa, velit provident numquam obcaecati sequi doloribus distinctio cum est deleniti, possimus praesentium perspiciatis ut. Sunt esse, quaerat, expedita veritatis explicabo tempore possimus inventore porro culpa omnis architecto temporibus error nam? Eaque voluptatem sequi exercitationem maxime inventore! Quaerat, eaque tempore ex non provident nihil perferendis, expedita eum similique temporibus tempora reiciendis quo? Nam saepe harum quia quas. Facere, magnam cum enim distinctio assumenda veritatis dicta officiis. Sint provident nulla facilis non, voluptas dicta omnis saepe nemo esse aspernatur impedit, error atque animi sunt voluptatibus aut eos perferendis. Facilis, animi molestiae. Nihil voluptate tempore natus vitae veritatis, odit, ullam delectus nesciunt dolorum quia, laudantium est illum maiores. Beatae rem sequi cumque deserunt suscipit porro dolor ratione voluptates qui quasi aspernatur, non quidem? Dolor autem est ullam culpa esse odio repudiandae modi eveniet tenetur, minus deleniti dolore, expedita iusto quaerat doloremque incidunt aspernatur labore saepe aliquam? Dolores, pariatur! Voluptas ipsam ducimus tenetur nemo, id ipsa mollitia culpa odio, consectetur dolores, neque inventore beatae. Atque tenetur, pariatur voluptatum temporibus, eveniet maiores possimus ullam illo, dicta expedita illum. Suscipit aspernatur ipsum itaque odit laboriosam magnam rem accusamus ullam commodi a. Ipsam nam alias quasi excepturi aperiam autem. Eveniet architecto est reiciendis quibusdam! Alias perferendis aut, praesentium sunt minima nihil porro. Iste alias fugit perspiciatis assumenda, sed dolores. Odio reprehenderit numquam eligendi maxime dignissimos. Voluptates nihil temporibus cupiditate vitae provident vero fugiat iste harum sapiente repellat itaque dicta amet animi non ratione id sit, nobis ut tempora ipsum! Deserunt maxime recusandae delectus labore voluptate deleniti! Totam accusantium a doloribus suscipit provident rerum officia, perspiciatis aliquid inventore corrupti voluptatem est praesentium iusto numquam obcaecati fugiat consequatur possimus reiciendis excepturi sed dolorum. Dicta, dolorum tenetur magnam nulla quisquam ratione mollitia laboriosam tempore nihil totam beatae sapiente, minus cum. Quasi deserunt architecto consequatur incidunt, sapiente rerum! Excepturi deleniti ea at esse eius facilis debitis perferendis dolorum dignissimos, illo obcaecati, possimus voluptatum eveniet enim est, hic architecto iusto. Omnis nemo provident quia! Doloremque quo, perspiciatis assumenda suscipit accusamus vero impedit? Temporibus at inventore doloremque porro repellat delectus! Iste vero debitis qui. Temporibus repudiandae perspiciatis omnis qui nulla, eveniet vero error laborum voluptatum beatae dolores dolorem, ab debitis illo quos minima quia fuga? Optio officia modi nemo ipsa quaerat voluptatem dolorem odit quae eaque fugiat? Delectus esse culpa animi natus aliquid labore sint minima obcaecati fuga dolorum. Laborum ratione rerum sint iste rem dolor harum impedit, debitis nesciunt fuga illo? Alias quis dignissimos quaerat harum aliquam beatae quam vel tempore velit eligendi, corporis nihil sapiente unde perspiciatis iure amet, rerum, ratione quas. Inventore animi temporibus voluptas laborum ducimus vitae ipsum delectus corrupti necessitatibus enim vero accusamus, pariatur facere eaque quae quibusdam tenetur eos omnis eligendi, itaque quod provident tempora minus. Repellendus impedit nisi tempora odit ad quam dolores. Eligendi eius deserunt odio consequuntur quas dolores excepturi id tenetur, distinctio tempore nulla tempora aliquid adipisci doloremque veritatis. Iusto magnam libero quas tempore laudantium delectus minus consequuntur dolorum iure earum. Quidem velit consequuntur eum dolorem. Vitae dolor placeat iure unde vel? Nobis ipsa, quasi, alias adipisci hic at quis saepe, repellat laboriosam aperiam deleniti officia odit! Voluptatibus in accusamus natus laborum illum eligendi ut quam nulla doloribus, repudiandae quisquam vero? Similique quae provident nobis unde, quasi earum ratione quia autem amet quis quibusdam minus ullam omnis sint. Ut possimus eum quas aliquam praesentium architecto magnam laborum voluptates quibusdam sunt blanditiis molestias libero aperiam distinctio voluptatem, maxime est eaque vitae nostrum. Recusandae rem laudantium quis assumenda inventore error nesciunt fuga soluta, saepe illo perferendis porro voluptates at facere, vitae ullam aperiam praesentium quidem? Amet sequi ab deserunt, omnis fuga quia. Laborum id, deserunt earum cum porro temporibus quos ullam aliquid magnam vero necessitatibus? Unde excepturi ratione laborum quasi. Aliquid recusandae voluptas beatae velit voluptate animi est quaerat blanditiis, iure minus, aut, placeat facilis explicabo a temporibus distinctio omnis pariatur eum doloribus laboriosam eligendi illum quibusdam laborum veniam! Sapiente, sunt eum iste nisi hic distinctio ratione delectus iusto nostrum odio ipsum ex nulla quod qui accusamus, minus impedit facilis corrupti consectetur voluptatibus. Maxime a qui possimus, minima pariatur mollitia impedit veniam numquam beatae dolorem itaque esse magnam ad, voluptatem sapiente totam et assumenda sequi eaque officiis dolorum sunt. Neque nisi praesentium ut ad, beatae adipisci nesciunt molestias incidunt omnis quisquam blanditiis atque. Velit officia tenetur voluptatibus voluptates. Qui consequuntur omnis impedit tempora temporibus dicta libero accusantium distinctio velit. Beatae dolorem ut tempora sunt, obcaecati earum molestiae doloremque exercitationem error saepe minus commodi eos tenetur, iure officiis cumque repellendus voluptatem. Exercitationem necessitatibus accusantium dolore, ipsum quisquam officia id consectetur, ab in recusandae nesciunt excepturi. Repudiandae quo numquam error facilis ab, impedit animi aut quae illo excepturi vitae eum est voluptate, optio sit ad voluptatibus dolore laboriosam ipsam rem facere, recusandae veritatis aliquid molestiae! Facilis eum earum vel adipisci sint et iste quidem tenetur dolorum fugit dolores ad molestiae rerum nam, voluptate doloremque illo. Sapiente, illo earum? Laborum, ipsam quam vitae sapiente dolores ullam itaque quae sed libero nam explicabo quod perferendis inventore necessitatibus tempora, aliquam officia earum consequatur placeat. Dolorum iusto sapiente nobis nostrum molestias cum, non eum suscipit sequi tempore omnis quam libero quaerat? Atque cum magni pariatur, voluptate cupiditate qui eveniet quas at labore perferendis repellat reiciendis iusto facilis veritatis placeat tenetur distinctio rem explicabo quasi eligendi itaque eius libero voluptatum nostrum? Cum sapiente sequi deleniti voluptate alias laborum officiis, rerum quae corrupti dolores mollitia id, assumenda expedita reiciendis vero ut, excepturi ullam natus laudantium atque incidunt repudiandae. Saepe deleniti, fugit ad sequi molestias nesciunt nam officiis quibusdam culpa quaerat, suscipit id modi quas. Hic ipsum explicabo veniam laboriosam! Facere nihil aliquid inventore consequuntur sit maiores, blanditiis quod repudiandae dignissimos, consectetur amet porro autem officiis atque commodi facilis odio qui. Saepe delectus natus, sapiente, ab sit doloribus aut excepturi necessitatibus laboriosam ipsa quae quas exercitationem neque voluptatem minima officia adipisci. Tempora, corrupti architecto doloribus repellat blanditiis assumenda? Tempore, nam enim. Id quisquam voluptatem suscipit asperiores quo tempore praesentium, molestias consectetur natus itaque animi recusandae quis temporibus harum labore! Rerum nesciunt quam accusantium doloremque totam distinctio rem eveniet fuga! Corrupti natus sit repudiandae at odio voluptate ab soluta nobis qui recusandae unde ratione nihil temporibus quas modi dolorum, distinctio quos sed porro accusamus! Quaerat, vero dicta? Tempore corporis voluptates libero aliquam maxime facilis? Doloremque esse fuga omnis expedita dignissimos illo nisi eum accusantium impedit quidem corporis libero, perspiciatis recusandae repudiandae nam odit mollitia minus reiciendis voluptas blanditiis. Magni possimus necessitatibus quisquam minus nobis iusto voluptates laborum animi praesentium similique quia quo nesciunt, earum unde ullam placeat. Quis excepturi impedit consequuntur nulla praesentium dolorum, animi repudiandae accusamus, aut voluptatem quibusdam ducimus nam explicabo quisquam dolores deserunt non nobis suscipit blanditiis? Dignissimos eius molestiae repellat maxime est facilis aliquid obcaecati impedit in fugit necessitatibus voluptatum quis unde, autem corrupti ipsam, ea quia enim voluptatem dolorum dolores sint quas atque. Sed recusandae atque provident eaque, ratione earum maxime repellendus a hic voluptatibus iusto inventore consequuntur perferendis exercitationem harum amet? Voluptates accusamus quam dignissimos sint amet illum distinctio voluptatum necessitatibus impedit beatae aperiam autem vitae magnam dolorem rem molestiae similique repudiandae, labore vel id. Hic itaque quam molestiae eveniet nostrum numquam consectetur, laborum perspiciatis est, in tempore error id libero qui magni ad molestias reiciendis? Libero possimus deleniti consequuntur sint maiores illum tenetur incidunt numquam, veritatis esse culpa odio mollitia harum!
-      </p>
+    <div className="tab-content">
+      {error && <div>{error}</div>}
+      {data &&
+        <>
+          <h2>Spaceships</h2>
+          <ul>
+            {data.results.map((item, i) => (
+              <li className="card" key={item.name} onClick={() => dispatch(openModal({modalName: item.name, modalImage: setImagePage()[i]}))} >
+                <h3>{item.name}</h3>
+                <img src={setImagePage()[i]} alt="" />
+                <p><span className="text-stat">Model:</span> {item.model}</p>
+                <p><span className="text-stat">Manufacturer:</span> {item.manufacturer}</p>
+                <p><span className="text-stat">Cost:</span> {formatLargeNumbers(item.cost_in_credits)}</p>
+                <p><span className="text-stat">Length:</span> {addCommas(item.length)}</p>
+                <p><span className="text-stat">Max Atmospheric Speed:</span> {addCommas(item.max_atmosphering_speed)}</p>
+                <p><span className="text-stat">Crew:</span> {addCommas(item.crew)}</p>
+                <p><span className="text-stat">Passengers:</span> {addCommas(item.passengers)}</p>
+                <p><span className="text-stat">Cargo Capacity:</span> {formatLargeNumbers(item.cargo_capacity)}</p>
+                <p><span className="text-stat">Consumables:</span> {item.consumables}</p>
+                <p><span className="text-stat">Hyperdrive Rating:</span> {item.hyperdrive_rating}</p>
+                <p><span className="text-stat">MGLT:</span> {item.MGLT}</p>
+                <p><span className="text-stat">Starship Class:</span> {item.starship_class}</p>
+              </li>
+            ))}
+          </ul>
+          <Pagination data={data} setUrl={setUrl} firstPage={firstPage} lastPage={lastPage} />
+        </>
+      }
     </div>
   );
 }

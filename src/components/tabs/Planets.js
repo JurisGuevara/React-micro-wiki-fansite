@@ -3,7 +3,7 @@ import { useState } from "react";
 import useFetch from "../../customHooks/useFetch";
 import Pagination from "../Pagination";
 import { useDispatch } from "react-redux";
-import { closeModal, openModal } from "../../store/modalSlice";
+import { openModal } from "../../store/modalSlice";
 
 const Planets = () => {
   const [url, setUrl] = useState('https://swapi.dev/api/planets/?page=1')
@@ -11,7 +11,7 @@ const Planets = () => {
   const firstPage = 'https://swapi.dev/api/planets/?page=1'
   const lastPage = 'https://swapi.dev/api/planets/?page=6'
 
-  const planetsPage1 = [
+  const imagesPage1 = [
     'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/ed97b542-8697-4d5c-a783-0dd8185c89d0/d15sn9h-b91d0d97-8378-4b8c-b943-dd1b39a21a84.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2VkOTdiNTQyLTg2OTctNGQ1Yy1hNzgzLTBkZDgxODVjODlkMFwvZDE1c245aC1iOTFkMGQ5Ny04Mzc4LTRiOGMtYjk0My1kZDFiMzlhMjFhODQuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.TbpQRH5usavAhtJl_KJ7Tg7eyJBgiVM7fwz7iddfc_4',
     'https://i.imgur.com/pmKfFI6.png',
     'https://pm1.narvii.com/6065/4ef3bc9f584b0d9f9da1d2fcd866e7fbd5872319_hq.jpg',
@@ -24,7 +24,7 @@ const Planets = () => {
     'https://i.pinimg.com/originals/13/e9/73/13e973ac6299ea33ae3b433d88da8f2e.png'
   ]
 
-  const planetsPage2 = [
+  const imagesPage2 = [
     'https://media.moddb.com/images/mods/1/25/24054/AloViewer_2020-05-24_20-20-52-960.png',
     'https://lumiere-a.akamaihd.net/v1/images/utapau-bio-1_1241ece6.jpeg?region=0%2C0%2C1280%2C720&width=960',
     'https://phantom-marca.unidadeditorial.es/a94f46da80e4752105daa01d3133af47/resize/1320/f/jpg/assets/multimedia/imagenes/2022/06/04/16543187798029.jpg',
@@ -37,7 +37,7 @@ const Planets = () => {
     'https://qph.cf2.quoracdn.net/main-qimg-cca6401da044683273d781c9d9cf6b40-lq'
   ]
 
-  const planetsPage3 = [
+  const imagesPage3 = [
     'https://i.pinimg.com/736x/7e/e2/9b/7ee29ba5211d99b65022b7040d2629f8.jpg',
     'https://cdnb.artstation.com/p/assets/images/images/006/189/823/large/yuval-halevy-corellia-3.jpg?1496688979',
     'https://i.pinimg.com/originals/ff/d3/8c/ffd38ca98fa4348fc237ffb974127367.png',
@@ -50,7 +50,7 @@ const Planets = () => {
     'https://i.pinimg.com/originals/bc/c1/82/bcc1821dd6991836a5f7134678016889.jpg'
   ]
 
-  const planetsPage4 = [
+  const imagesPage4 = [
     'https://pm1.narvii.com/6635/4bfcf8b3de47242b0d2b609e605d3d6eb95bc798_hq.jpg',
     'http://ayay.co.uk/backgrounds/star_wars/locations/planet-chandrila.jpg',
     'https://overmental.com/wp-content/uploads/2015/04/Sullust_FoC.jpg',
@@ -63,7 +63,7 @@ const Planets = () => {
     'http://www.theforce.net/timetales/tt1-1/malastare.jpg'
   ]
 
-  const planetsPage5 = [
+  const imagesPage5 = [
     'https://images3.imgbox.com/1f/28/CwtSdFth_o.jpg',
     'https://i.imgur.com/AEfKfg8.jpeg',
     'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/9c2a96d7-c8e0-4faf-917e-ad619df1e4dc/d97itss-22874705-ad59-4301-99e6-c897e540b264.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzljMmE5NmQ3LWM4ZTAtNGZhZi05MTdlLWFkNjE5ZGYxZTRkY1wvZDk3aXRzcy0yMjg3NDcwNS1hZDU5LTQzMDEtOTllNi1jODk3ZTU0MGIyNjQucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.gI8IVWehpmtBzPdGuh4fBMfeQuI_ADi31GBQGIWjJVA',
@@ -76,7 +76,7 @@ const Planets = () => {
     'https://media.nouvelobs.com/ext/uri/sreferentiel.nouvelobs.com/file/rue89/eaca358c272682beab5970c5ede33720.jpg'
   ]
 
-  const planetsPage6 = [
+  const imagesPage6 = [
     'http://pm1.narvii.com/7459/c30704ccc572eda90fd630e78baef021eed06926r1-340-340v2_00.jpg',
     'https://pm1.narvii.com/7387/ea65433e8562d7786c62712ed37e29d0d56d7d8er4-641-321_00.jpg',
     'https://www.bobafettfanclub.com/multimedia/galleries/albums/userpics/10001/concord-dawn-0-1659583113.jpeg',
@@ -89,20 +89,20 @@ const Planets = () => {
     'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/bf647a71-7b90-4b94-9bc7-0c4e8ba2ff1f/ddyg33m-1ee35f81-a1e8-40ad-a5f3-b3d4a4f758a7.jpg/v1/fill/w_1024,h_607,q_75,strp/star_wars___umbara_by_tashamille_ddyg33m-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NjA3IiwicGF0aCI6IlwvZlwvYmY2NDdhNzEtN2I5MC00Yjk0LTliYzctMGM0ZThiYTJmZjFmXC9kZHlnMzNtLTFlZTM1ZjgxLWExZTgtNDBhZC1hNWYzLWIzZDRhNGY3NThhNy5qcGciLCJ3aWR0aCI6Ijw9MTAyNCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.l6U_UO_pJ84K0dbWv2j2XG27CLkZ5UBrAjugoHyF9VI'
   ]
 
-  const planetImages = () => {
+  const setImagePage = () => {
     switch (url) {
       case 'https://swapi.dev/api/planets/?page=1' :
-        return planetsPage1
+        return imagesPage1
       case 'https://swapi.dev/api/planets/?page=2' :
-        return planetsPage2
+        return imagesPage2
       case 'https://swapi.dev/api/planets/?page=3' :
-        return planetsPage3
+        return imagesPage3
       case 'https://swapi.dev/api/planets/?page=4' :
-        return planetsPage4
+        return imagesPage4
       case 'https://swapi.dev/api/planets/?page=5' :
-        return planetsPage5
+        return imagesPage5
       case 'https://swapi.dev/api/planets/?page=6' :
-        return planetsPage6
+        return imagesPage6
       default:
         break
     }
@@ -112,7 +112,7 @@ const Planets = () => {
     return strDigits.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
   }
 
-  const formatPopulation = (value) => {
+  const formatLargeNumbers = (value) => {
     var newValue = value;
     if (value >= 1000) {
         var suffixes = ["", "k", "m", "b","t"];
@@ -139,9 +139,9 @@ const Planets = () => {
           <h2>Planets</h2>
           <ul>
             {data.results.map((planet, i) => (
-              <li className="card" key={planet.name} onClick={() => dispatch(openModal({modalName: planet.name, modalImage: planetImages()[i]}))} >
+              <li className="card" key={planet.name} onClick={() => dispatch(openModal({modalName: planet.name, modalImage: setImagePage()[i]}))} >
                 <h3>{planet.name}</h3>
-                <img src={planetImages()[i]} alt="" />
+                <img src={setImagePage()[i]} alt="" />
                 <p><span className="text-stat">Rotation Period:</span> {planet.rotation_period}</p>
                 <p><span className="text-stat">Orbital Period:</span> {addCommas(planet.orbital_period)}</p>
                 <p><span className="text-stat">Diameter:</span> {addCommas(planet.diameter)}</p>
@@ -149,7 +149,7 @@ const Planets = () => {
                 <p><span className="text-stat">Gravity:</span> {planet.gravity}</p>
                 <p><span className="text-stat">Terrain:</span> {planet.terrain}</p>
                 <p><span className="text-stat">Surface Water:</span> {planet.surface_water}</p>
-                <p><span className="text-stat">Population:</span> {formatPopulation(planet.population)}</p>
+                <p><span className="text-stat">Population:</span> {formatLargeNumbers(planet.population)}</p>
               </li>
             ))}
           </ul>
