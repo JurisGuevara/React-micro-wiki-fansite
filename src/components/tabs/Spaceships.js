@@ -99,7 +99,7 @@ const Spaceships = () => {
 
   return (
     <div className="tab-content">
-      {error && <div>{error}</div>}
+      {error && <div className="error">{error}</div>}
       {data &&
         <>
           <h2>Spaceships</h2>

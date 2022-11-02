@@ -133,7 +133,7 @@ const Planets = () => {
 
   return (
     <div className="tab-content">
-      {error && <div>{error}</div>}
+      {error && <div className="error">{error}</div>}
       {data &&
         <>
           <h2>Planets</h2>
