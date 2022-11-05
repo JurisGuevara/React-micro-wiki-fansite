@@ -12,13 +12,9 @@
 }
 
 .modal-content {
-  width: auto;
-  height: auto;
-  max-width: 80vh;
-  max-height: 80vh;
   position: relative;
   background-color: #FFFFFF;
-  padding: 4px 4px 0;
+  padding: 4px;
   border-radius: 4px;
 }
 
@@ -65,7 +61,9 @@
 .modal-content img {
   object-fit: cover;
   width: 100%;
-  height: auto;
+  height: 100%;
+  max-width: 80vw;
+  max-height: 80vh;
 }
 
 @media (min-height: 1000px) {
