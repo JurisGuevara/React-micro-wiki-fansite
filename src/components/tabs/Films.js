@@ -25,7 +25,7 @@ const Films = () => {
           <h2>Films</h2>
           <ul>
             {data.results.map((item, i) => (
-              <li className="card" key={item.title} style={{cursor: 'unset'}} onClick={() => dispatch(openModal({modalImage: imagesPage1[i]}))} >
+              <li className="card" key={item.title} onClick={() => dispatch(openModal({modalImage: imagesPage1[i]}))} >
                 <h3>{item.title}</h3>
                 <img className="vertical" src={imagesPage1[i]} alt="" />
                 <p><span className="text-stat">Release Date:</span> {item.release_date}</p>
