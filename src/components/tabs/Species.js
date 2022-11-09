@@ -95,7 +95,7 @@ const Species = () => {
                 <p><span className="text-stat">Hair Colors:</span> {item.hair_colors}</p>
                 <p><span className="text-stat">Eye Colors:</span> {item.eye_colors}</p>
                 <p><span className="text-stat">Average Lifespan:</span> {item.average_lifespan}</p>
-                <p><span className="text-stat">Language:</span> {item.language}</p>
+                <p><span className="text-stat">Languages:</span> {item.language}</p>
               </li>
             ))}
           </ul>
