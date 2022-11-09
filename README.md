@@ -5,6 +5,9 @@ Libraries used:
  - React Router v6
  - Redux Toolkit v1
 
+Public API used:
+ - Starwars API (https://swapi.dev/)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
