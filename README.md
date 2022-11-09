@@ -1,3 +1,10 @@
+# Micro Wiki Fan Site created with React
+
+Libraries used:
+ - React v18
+ - React Router v6
+ - Redux Toolkit v1
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

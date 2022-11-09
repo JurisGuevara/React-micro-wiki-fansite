@@ -1,10 +1,107 @@
+import "../../css/Tabs.css"
+import { useState } from "react";
+import useFetch from "../../customHooks/useFetch";
+import Pagination from "../Pagination";
+import { useDispatch } from "react-redux";
+import { openModal } from "../../store/modalSlice";
+
 const Species = () => {
+  const [url, setUrl] = useState('https://swapi.dev/api/species/?page=1')
+  const {data, error} = useFetch(url)
+  const firstPage = 'https://swapi.dev/api/species/?page=1'
+  const lastPage = 'https://swapi.dev/api/species/?page=4'
+
+  const imagesPage1 = [
+    'https://www.starwars-holonet.com/holonet/images/e/ef/14925/perso_es01_1.jpg',
+    'https://i.pinimg.com/736x/e5/0f/35/e50f359e42eea17afd2ef8c0bda509bb--art-google-robot.jpg',
+    'https://pm1.narvii.com/6109/ee32d46a65416b65eb368106d7b3123e424648e7_hq.jpg',
+    'https://i.pinimg.com/originals/82/61/77/8261771c21fc3a292ff5704527d30838.jpg',
+    'https://i.pinimg.com/736x/5a/2b/0e/5a2b0ecb395f594042dddc6365eecce4.jpg',
+    'https://i0.wp.com/andyarttv.com/wp-content/uploads/2020/01/yoda-species.jpg?resize=735%2C285&ssl=1',
+    'https://i.pinimg.com/736x/38/05/a2/3805a26fc3885271f08a21742228a18f.jpg',
+    'https://www.syfy.com/sites/syfy/files/styles/amp_featured_image/public/2019/04/mv5bmje4nzg0nzq3n15bml5banbnxkftztcwmdgzmty2mw-1._v1_sy1000_cr0014881000_al_.jpg?h=30d84fe0',
+    'https://lumiere-a.akamaihd.net/v1/images/databank_ewok_01_169_747db03a.jpeg?region=0%2C49%2C1560%2C780',
+    'https://i.pinimg.com/originals/0e/ec/cd/0eeccd6c72964a938267e3b5470e344b.jpg'
+  ]
+
+  const imagesPage2 = [
+    'https://i.pinimg.com/736x/e3/b4/47/e3b4475ec0d2a648d4044217105a7273--war-machine-the-phantom.jpg',
+    'https://i.pinimg.com/736x/c2/92/11/c2921134eadf9fa7a1a26bb9d057e872--strong-legs-the-planets.jpg',
+    'https://static0.srcdn.com/wordpress/wp-content/uploads/2020/10/Star-Wars-Toydarians.jpg',
+    'https://lumiere-a.akamaihd.net/v1/images/databank_dug_01_169_a36b6959.jpeg?region=0%2C0%2C1560%2C878&width=960',
+    'https://i.pinimg.com/originals/6a/41/0c/6a410c6c7d5bb1b83674ec009e686eaf.png',
+    'https://i.pinimg.com/736x/a1/5e/0b/a15e0b9e7f92891adcab242160753074--starwars.jpg',
+    'https://i.pinimg.com/736x/b1/43/89/b143895f75a22357b92268a6a0151c66.jpg',
+    'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/2a50fed6-5f37-42b3-aba5-b48c99a0aa08/d4v1v25-6e64d24a-e4cd-485b-ab3f-81f5edc5a425.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3sicGF0aCI6IlwvZlwvMmE1MGZlZDYtNWYzNy00MmIzLWFiYTUtYjQ4Yzk5YTBhYTA4XC9kNHYxdjI1LTZlNjRkMjRhLWU0Y2QtNDg1Yi1hYjNmLTgxZjVlZGM1YTQyNS5qcGcifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6ZmlsZS5kb3dubG9hZCJdfQ.sINe_Du6kYLayelWZQ6dL66ewjGPWFPQydq2txK_BOk',
+    'https://pbs.twimg.com/media/FQ43PqfUcAEQbQ-?format=jpg&name=360x360',
+    'https://i.pinimg.com/550x/7d/4f/ff/7d4fff6527cebc3ffdb04e8b011b3e85.jpg'
+  ]
+
+  const imagesPage3 = [
+    'https://i.pinimg.com/736x/90/26/bb/9026bb22cb9a1e659f8e1cca43a6b6e9--star-wars-jedi-star-wars-art.jpg',
+    'https://64.media.tumblr.com/c971bc9c8e4f833925504ecf64b30c24/tumblr_p9i1zbtIwJ1vxvhxno1_r1_1280.png',
+    'https://i.pinimg.com/originals/ec/18/26/ec1826b750a5fb46b6a3fb833a9c785f.jpg',
+    'https://static1.cbrimages.com/wordpress/wp-content/uploads/2022/02/Darth-Malgus.jpg',
+    'https://static1.cbrimages.com/wordpress/wp-content/uploads/2020/08/yarael-poof-.jpg',
+    'https://i.pinimg.com/736x/d5/8b/dc/d58bdcda066780673f812011963f1970.jpg',
+    'https://i.pinimg.com/originals/f7/ea/c1/f7eac1236c8746ff2404ea493e726a43.jpg',
+    'https://filmgoblin.com/wp-content/uploads/2018/01/geonosian-Geonosis-1024x433.jpg',
+    'https://i.pinimg.com/736x/6a/96/f6/6a96f688f0ad8e811d45322814605624--clone-wars-starwars.jpg',
+    'https://i.pinimg.com/564x/b8/71/f9/b871f92fb63310cdc2efc660b84c5808.jpg'
+  ]
+
+  const imagesPage4 = [
+    'https://i.pinimg.com/originals/3b/11/81/3b1181e4e1c37fc6ac1d32e4fa4e1556.jpg',
+    'https://y.yarn.co/59a5c5d4-65e9-4baf-96d6-b0fd990827f3_screenshot.jpg',
+    'https://i.pinimg.com/originals/3a/7b/32/3a7b326f2e1567671c070ea38554420b.jpg',
+    'https://lumiere-a.akamaihd.net/v1/images/clu-lesser_ce89b8aa.jpeg?region=40%2C0%2C1479%2C832&width=960',
+    'https://i.pinimg.com/originals/5e/f2/0b/5ef20bada25fe07558352b0ad098190a.jpg',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwlD1oRBKA7bSXT9BW43m5twijaciR7E0cGIc4x2znjHf5_hjmptn1eLOWOy-o2V681NY&usqp=CAU',
+    'https://lumiere-a.akamaihd.net/v1/images/databank_pauan_01_169_7fbc02c1.jpeg?region=417%2C19%2C1143%2C572'
+  ]
+
+  const setImagePage = () => {
+    switch (url) {
+      case 'https://swapi.dev/api/species/?page=1' :
+        return imagesPage1
+      case 'https://swapi.dev/api/species/?page=2' :
+        return imagesPage2
+      case 'https://swapi.dev/api/species/?page=3' :
+        return imagesPage3
+      case 'https://swapi.dev/api/species/?page=4' :
+        return imagesPage4
+      default:
+        break
+    }
+  }
+
+  const dispatch = useDispatch()
+
   return (
-    <div>
-      <h2>Species</h2>
-      <p>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias modi eveniet facilis necessitatibus consequatur, optio laudantium, nisi voluptatem ipsum repudiandae aliquam repellendus corporis facere illum id repellat odio earum, eaque sequi labore consequuntur eum. Quaerat, molestias. Blanditiis culpa adipisci eaque suscipit eius repellat libero iste, voluptate aliquid quo saepe similique itaque in deserunt quasi ratione, enim rem error ex corporis amet illum nulla? Consectetur dolorem, ea veritatis omnis, sit eum cum veniam quis est mollitia temporibus, odit excepturi. Illum, eum laudantium. Eos veniam nesciunt ratione nobis? Iure, ea earum harum ad possimus voluptate quaerat esse veritatis atque cum deleniti est vitae assumenda perspiciatis amet. Accusamus quae pariatur porro possimus. Facere aliquid commodi accusantium fugiat iste sed in ea ipsam debitis! Voluptatum omnis temporibus iusto labore ad possimus laudantium, et molestiae, ex mollitia id explicabo quae harum neque repellat porro ab amet vel corporis dolore aspernatur perspiciatis, quo eveniet quas. Asperiores consequatur praesentium architecto corporis fuga. Sint doloremque eum eos dignissimos reiciendis ducimus architecto id nulla perferendis ad voluptatem ipsa in quo a molestias, asperiores numquam ut corporis laboriosam repellat voluptate blanditiis ipsum! Culpa repudiandae quasi praesentium, voluptas distinctio iusto? Rerum ad inventore consectetur fuga. Architecto temporibus nisi nulla odio neque eaque veniam ullam officiis. Sequi, velit sapiente illo accusamus rem et maxime corrupti temporibus ab, vitae est nesciunt, quod itaque. Ea debitis et optio velit nihil repudiandae animi doloremque minima eligendi est officiis vel itaque beatae ipsa amet nulla, laboriosam unde aspernatur accusantium corporis reiciendis recusandae aliquam. Obcaecati, architecto. Quibusdam voluptates corporis numquam incidunt soluta dolorem perferendis molestias. Odit nostrum expedita reiciendis enim, at dolores? Et voluptas soluta nemo incidunt ut necessitatibus quos laboriosam nam neque repudiandae corrupti excepturi exercitationem esse enim architecto sunt, quaerat animi in ad? Nostrum, recusandae veritatis perferendis ducimus in, totam minima sint nemo nisi repudiandae consectetur incidunt, deserunt quas magni. Nihil, sapiente distinctio! Accusamus dolores iusto voluptates alias facere laudantium exercitationem placeat, asperiores architecto distinctio quo similique, omnis, esse dicta laborum fugiat dolor iure reiciendis repudiandae cumque ex. Repellendus, dolorum deserunt ipsum debitis exercitationem quis aliquam modi quaerat corrupti libero consequatur ratione quos accusantium blanditiis assumenda iure eius numquam ipsam nulla! Delectus, incidunt veritatis! Illum quis porro eum culpa laborum, qui aliquam alias fuga natus quisquam minima nam sit quam repudiandae tempora voluptas temporibus. At iste ducimus consectetur animi temporibus eum eveniet vero cum voluptatum dicta placeat, distinctio reiciendis quia adipisci architecto. Harum, deleniti doloribus quo laboriosam doloremque libero nisi quis officia? Tempore doloribus unde voluptatem facilis, nihil sit modi aliquid, quidem obcaecati est sapiente saepe officiis ipsa molestias doloremque deleniti? Totam laborum alias repellendus blanditiis accusamus quod magni magnam officia. Ratione rerum minima architecto eum voluptatibus quibusdam provident. Voluptatem ut tenetur et in dolore commodi numquam perferendis unde! Repellat dolorem tempore blanditiis nisi possimus fugit quis, eos unde quas itaque adipisci officia ab. Voluptate facere iure, nostrum eaque inventore, numquam repudiandae provident distinctio cum libero beatae est possimus voluptas alias? Perspiciatis cum quae fugit dicta ratione error facilis! Vitae placeat incidunt omnis, accusantium minus facilis? Ducimus, incidunt natus officia doloribus odit cumque voluptatibus ipsam velit fugit cupiditate nam vero error qui saepe inventore impedit tenetur eligendi praesentium autem nihil maxime rem unde suscipit architecto. Tempore praesentium repellat reiciendis corporis quis voluptatibus autem minima, unde quos aperiam nemo, esse cupiditate iure voluptatem facilis et pariatur suscipit aut. Repudiandae minima tempora labore odio sunt ut sed voluptatem quia mollitia cupiditate, eaque odit ipsum maxime esse facilis. Quae, suscipit alias. Error nisi odio expedita odit nesciunt? Eveniet molestias vitae ipsa aliquam nobis nam nesciunt! Nisi libero reiciendis culpa iste, inventore aliquam impedit natus modi perspiciatis aperiam praesentium dolores nihil nostrum. Praesentium expedita, consequatur distinctio commodi nesciunt soluta a corrupti eius impedit illo possimus omnis velit nemo molestias. Asperiores commodi beatae cupiditate tempore modi sed praesentium laboriosam fugit quo reprehenderit distinctio, excepturi adipisci quidem debitis quam expedita fuga inventore voluptas. Quaerat repellendus deleniti, commodi optio nemo a quas voluptatum ratione, eos at deserunt perspiciatis consectetur excepturi? Impedit temporibus ea dolorem accusantium a voluptatum, delectus illo, nemo sint, cum vel autem necessitatibus cupiditate mollitia! Nemo est animi deleniti repellat ratione placeat suscipit numquam id. Aliquid amet aliquam excepturi, consequuntur at modi facilis, quia culpa, non quo itaque animi! Corrupti labore quod rerum ullam ea aut doloremque eligendi culpa ipsum voluptatum. Voluptates voluptatibus laborum iusto nemo possimus vero earum aspernatur ullam rem dolore amet, iste voluptas dolores! Debitis nihil recusandae rem nemo id deserunt porro blanditiis maxime facilis? Odio aliquid officiis eum fuga voluptatem. Eaque eius, corporis dolorum repellat itaque accusamus officiis similique dignissimos molestiae libero voluptatum, eveniet quae illo cumque velit facere sequi quia. Repellat consequatur aliquid iste velit culpa, voluptatem consequuntur minima doloribus cum. Atque accusamus blanditiis ea tempore, adipisci ex doloribus, maiores alias sunt quasi consectetur debitis consequuntur, laudantium corrupti nisi illum eius aliquid omnis impedit minus? Ea modi quasi architecto minima consequuntur laboriosam eius non explicabo ipsa molestiae quis consequatur cumque, tempora possimus illo ducimus! Amet nobis, quos, eum unde voluptatem eaque saepe voluptatibus est hic cupiditate nulla quibusdam ipsum dicta beatae, debitis eligendi. Cum accusantium, veritatis laboriosam quidem rerum, corporis in dolore omnis ab nisi quaerat mollitia. Praesentium odio neque labore laudantium magni, fugit ut magnam veritatis suscipit illum consequatur officia dignissimos reiciendis in repellat obcaecati eligendi repudiandae reprehenderit accusamus consectetur inventore. Distinctio neque omnis, blanditiis, atque velit ad hic alias, molestiae odio fugiat quibusdam voluptatibus deleniti quaerat iure voluptatem dolorum qui in dolore maiores. Eum necessitatibus voluptatum inventore facilis aspernatur dignissimos architecto, sunt consequatur tenetur rem enim harum ab laboriosam veritatis, pariatur obcaecati dolore eos similique libero distinctio nihil laborum neque aperiam? Minima quidem, adipisci, autem provident, mollitia consequuntur in dolorum deleniti accusamus perferendis magni error iusto? Error et suscipit quos consequatur qui hic nam saepe. Dolore tenetur, quas, architecto aliquid labore corporis alias quia et exercitationem minus error id nihil unde saepe atque ipsa eos quos voluptate, harum neque nisi illo. Facilis veritatis veniam distinctio cupiditate dignissimos atque nobis quibusdam officiis nostrum, rem a iste quae ut soluta provident ducimus excepturi eius magnam commodi saepe, recusandae corrupti? Distinctio, corporis reprehenderit. Quis ullam repellat nisi placeat, odit sequi id quos eum consequuntur quia numquam tempore aliquid, reprehenderit provident? Tenetur cupiditate perferendis culpa odit veritatis, sapiente quidem consectetur consequuntur dolores beatae sequi, id est eum? Hic, possimus? Ipsum necessitatibus nihil aliquid veniam voluptate. Quas sit voluptates debitis facere atque laudantium, quae fuga illo labore necessitatibus, porro quaerat? Laboriosam quaerat, vero repellendus quia voluptas voluptatibus sint facere soluta explicabo accusantium nesciunt? Iusto culpa vero, corporis esse, numquam id et doloribus debitis minus nemo commodi distinctio deserunt dolorum eum omnis blanditiis, modi dicta quia quas voluptates qui ipsam laborum perspiciatis delectus! Neque officiis nobis repellat aut. Ipsam error autem exercitationem dolorem eos veritatis quibusdam cupiditate pariatur ex modi maiores omnis cumque, rerum ullam, provident vitae, inventore est neque laborum voluptatum eligendi harum! Sint deleniti vitae placeat nisi blanditiis inventore facere repellat rerum esse eum cumque at mollitia eaque incidunt id corrupti porro excepturi et aspernatur tempore nihil, alias dicta aperiam qui? Molestias dolores officiis sed libero sunt quae minus dignissimos maxime molestiae? Qui perspiciatis vitae nesciunt architecto laudantium quas itaque non quis, aut quidem omnis a debitis, quos iste ab fugit placeat sit libero recusandae numquam? Eum fugiat odit facilis ea dignissimos tempora nulla hic nisi, suscipit ullam pariatur illum ipsam harum officia sint esse. Pariatur amet eum maxime, soluta aut esse quidem reiciendis voluptate, aperiam suscipit dolorum aliquid unde in est quo ut quod! Distinctio illum possimus, quo similique hic nobis totam maxime veniam suscipit neque labore asperiores facere eaque, placeat veritatis, culpa architecto a! Harum, assumenda eum blanditiis, enim magni voluptates natus quasi laboriosam odit fugit facilis nemo! Iure consectetur nihil eius iste error neque saepe voluptatum eligendi eveniet ea officia eos rerum eaque earum, rem, in eum excepturi similique dolorem recusandae? Sapiente obcaecati quos fugit recusandae, pariatur facere a nisi optio rerum officia aliquid quam exercitationem impedit consectetur amet quasi nobis. Quam dolorum non similique eos consequatur ipsa? Veritatis velit voluptas eaque, possimus ullam nesciunt, sapiente perferendis a magnam ex sit fugit error expedita odio perspiciatis distinctio nemo eveniet exercitationem itaque libero dolore assumenda. Explicabo pariatur minima corrupti, cupiditate, quam placeat blanditiis non nemo vitae assumenda eius reiciendis impedit accusantium quibusdam sapiente fuga veniam dolores dolorum natus est aliquid iure sunt quas. Maiores dolores vel dolor, voluptatibus error ad molestiae ex ipsam a aliquam qui provident! Accusamus ad esse voluptas asperiores quas eaque, velit similique ullam sint, earum facilis molestias odit obcaecati at, minus saepe corrupti a accusantium in iusto? Fuga sit beatae sunt! Earum, quis? Impedit commodi molestias vero laboriosam recusandae minima veritatis quis unde corrupti dolores eaque incidunt fugit placeat tenetur perspiciatis, similique exercitationem maiores omnis repudiandae deserunt quidem. Nemo id quam facere corporis deleniti necessitatibus nihil tenetur sint iusto aliquam magni quos odit ullam explicabo unde libero repellendus, a minima molestias tempora accusamus quae doloremque recusandae numquam. Deserunt nemo itaque explicabo obcaecati dolor. Pariatur voluptas nam quisquam fugiat, maiores dolorem praesentium. Quidem incidunt, veritatis, deleniti doloribus molestiae rem eligendi nemo quia libero, unde beatae sunt animi earum quod voluptates amet quas at. Eveniet quas eius at possimus est suscipit nisi voluptates, saepe ea sint incidunt itaque dolor id. Veritatis ut cumque aliquid molestias dolor aperiam saepe sunt quia asperiores delectus optio similique pariatur dicta adipisci, itaque eum architecto omnis facilis veniam vel, assumenda, quam maiores laboriosam error. Nulla dignissimos nihil suscipit hic facere deserunt quia! Atque quis ipsum tempora sit architecto, mollitia recusandae exercitationem velit dicta corporis? Est deleniti ex, dolores libero fugit dolorem laudantium, iste iusto aperiam exercitationem, sit minus! Ipsa assumenda, ab quam excepturi atque at aut odio amet enim delectus soluta ipsum earum animi magnam ullam consequatur tempora porro placeat. Earum consequatur exercitationem, doloribus, ut at molestias porro eaque voluptates perferendis placeat alias quibusdam quas ad magnam reprehenderit modi velit voluptas ex voluptate ipsam quae eius? Repudiandae, provident quam. Architecto quam, fugiat vitae sequi fuga et itaque iusto enim rerum necessitatibus totam aliquid ipsa. Eius ab commodi molestiae numquam fuga! Quo assumenda in repellendus eaque beatae ipsam nesciunt ut necessitatibus quod, laborum modi quis eos esse porro similique odio! Unde earum quas assumenda eius reiciendis sit labore libero totam, repellat at dolores. Soluta eius, adipisci aliquam facilis sit dolore neque unde accusantium nostrum praesentium quisquam perspiciatis facere. Optio sunt consequatur odio, incidunt adipisci assumenda nobis quia aperiam magnam cum corrupti modi quos, a repellendus sapiente ab ullam quaerat. Unde praesentium incidunt perferendis doloremque nostrum quibusdam hic a eos possimus inventore fugiat dolor amet pariatur, voluptatibus obcaecati repellat nesciunt. Nemo asperiores, eius expedita perferendis nam labore molestias omnis debitis quibusdam iusto saepe fugiat amet, iste molestiae, similique facilis aspernatur ipsum iure accusamus? Ea consequatur repellendus optio et fugit iste magni natus modi porro amet, a quasi numquam beatae debitis deleniti quisquam facilis! Molestias at harum quibusdam suscipit asperiores repudiandae cumque iusto officiis placeat sequi incidunt quis non, eligendi qui sint veritatis sapiente nulla nam nobis autem, dolores adipisci? Voluptatum illo, voluptas nostrum alias, incidunt, est unde libero dolorum ipsum obcaecati velit error voluptates tempora at tempore aspernatur voluptatem recusandae eaque ad fugiat. At, veniam omnis optio facere pariatur soluta suscipit! Nostrum sequi earum consequuntur cumque unde odio voluptatibus, porro, id voluptatum laudantium ullam maiores non corrupti, obcaecati nisi veritatis vero tenetur. Quia omnis perspiciatis soluta incidunt, culpa itaque officiis consequatur atque consectetur possimus et illum quasi, tempora voluptas dignissimos dolor aperiam facere sapiente! Sit maxime expedita obcaecati placeat natus nisi excepturi, quisquam incidunt totam repudiandae nulla praesentium odio itaque qui rem cupiditate nihil ipsa amet deleniti quam ab inventore facere quaerat! Repudiandae dolore aperiam fugiat, ipsam odit nihil at, nulla qui aliquid, nesciunt suscipit. Architecto quam facilis similique eaque sint eveniet ea corrupti placeat, ex voluptas culpa voluptatum cumque sed illo, itaque consectetur repudiandae officiis odio deleniti! Similique rem deleniti odit quod hic dolor maiores tempora consequatur voluptatum eaque necessitatibus animi quas numquam id, consequuntur, at unde illum earum recusandae adipisci eius sint voluptates nulla itaque. Eos velit fugit reprehenderit, iste enim culpa vitae aperiam? Sit ipsa odio quasi!
-      </p>
+    <div className="tab-content">
+      {error && <div className="error">{error}</div>}
+      {data &&
+        <>
+          <h2>Species</h2>
+          <ul>
+            {data.results.map((item, i) => (
+              <li className="card" key={item.name} onClick={() => dispatch(openModal({modalName: item.name, modalImage: setImagePage()[i]}))} >
+                <h3>{item.name}</h3>
+                <img src={setImagePage()[i]} alt="" />
+                <p><span className="text-stat">Classification:</span> {item.classification}</p>
+                <p><span className="text-stat">Designation:</span> {item.designation}</p>
+                <p><span className="text-stat">Average Height:</span> {item.average_height}</p>
+                <p><span className="text-stat">Skin Colors:</span> {item.skin_colors}</p>
+                <p><span className="text-stat">Hair Colors:</span> {item.hair_colors}</p>
+                <p><span className="text-stat">Eye Colors:</span> {item.eye_colors}</p>
+                <p><span className="text-stat">Average Lifespan:</span> {item.average_lifespan}</p>
+                <p><span className="text-stat">Language:</span> {item.language}</p>
+              </li>
+            ))}
+          </ul>
+          <Pagination data={data} setUrl={setUrl} firstPage={firstPage} lastPage={lastPage} />
+        </>
+      }
     </div>
   );
 }
