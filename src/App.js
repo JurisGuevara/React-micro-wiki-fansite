@@ -12,6 +12,7 @@ import Vehicles from './components/tabs/Vehicles';
 import Loading from './components/Loading';
 import { useSelector } from 'react-redux';
 import Modal from './components/Modal';
+import NotFound from './components/tabs/NotFound';
 
 function App() {
   window.addEventListener('scroll', function() {
@@ -44,6 +45,7 @@ function App() {
           <Route path="/people" element={<People />} />
           <Route path="/films" element={<Films />} />
           <Route path="/species" element={<Species />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
       <button className="to-top-btn" onClick={toTop}>To top</button>
